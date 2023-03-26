@@ -1,0 +1,17 @@
+#body {
+    background-color: #dbe4c6;
+  }
+  .main {
+    height: 100vh;
+  }
+  .btn:focus,
+  .btn:active {
+    outline: none !important;
+    box-shadow: none;
+  }
+  .btn:active {
+    transform: scale(1.2);
+  }
+  #quote-box {
+    width: 700px;
+  }
