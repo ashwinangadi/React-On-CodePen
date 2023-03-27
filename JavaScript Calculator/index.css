@@ -1,0 +1,17 @@
+body {
+    background-color: #a4c3b2;
+    height: 100vh;
+  }
+  #app {
+    height: 100vh;
+  }
+  #calC{
+    height: 400px;
+    width: 300px;
+  }
+  .outline{
+    border : solid 1px black
+  }
+  
+  
+  
