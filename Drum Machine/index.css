@@ -1,0 +1,23 @@
+body {
+    background-color: #cad2c5;
+    height: 100vh;
+  }
+  #app {
+    height: 100vh;
+  }
+  #drum-machine {
+    width: 500px;
+    background-color: #aec3b0;
+  }
+  #drum-machine-buttons {
+    width: 200px;
+    height: 200px;
+  }
+  .drum-pad {
+    background-color: #52796f;
+  }
+  #display {
+    background-color: #cad2c5;
+    height: 25px;
+  }
+  
