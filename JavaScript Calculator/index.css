@@ -1,17 +1,22 @@
 body {
-    background-color: #a4c3b2;
-    height: 100vh;
-  }
-  #app {
-    height: 100vh;
-  }
-  #calC{
-    height: 400px;
-    width: 300px;
-  }
-  .outline{
-    border : solid 1px black
-  }
-  
-  
-  
+  background-color: #a4c3b2;
+  height: 100vh;
+}
+#app {
+  height: 100vh;
+}
+#calC {
+  height: 400px;
+  width: 300px;
+}
+.outline {
+  border: solid 1px black;
+}
+#display,
+#display1 {
+  height: 35px;
+  background-color: #495057;
+}
+#keypad {
+  height: 300px;
+}
