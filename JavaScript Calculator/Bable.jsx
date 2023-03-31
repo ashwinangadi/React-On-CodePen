@@ -1,83 +1,3 @@
-// switch (input) {
-//   case "/":
-//     if (
-//       ["/","x"].includes(this.state.display[this.state.display.length - 2]) &&
-//       ["-"].includes(this.state.display[this.state.display.length - 1])
-//     ) {
-//       console.log("ghgg")
-//       this.setState({
-//         display:
-//           this.state.display.substring(0, this.state.display.length - 2) +
-//           input
-//       });
-//     } else if (
-//       ["/", "x", "+", "-"].includes(
-//         this.state.display[this.state.display.length - 1]
-//       )
-//     ) {
-//       this.setState({
-//         display:
-//           this.state.display.substring(0, this.state.display.length - 1) +
-//           input
-//       });
-//     } /*else {
-//       this.setState({
-//         display:
-//           this.state.display.substring(0, this.state.display.length - 1) +
-//           input
-//       });
-//     }*/
-//     break;
-//   case "x":
-//     if (
-//       ["/", "x"].includes(this.state.display[this.state.display.length - 2]) &&
-//       ["-"].includes(this.state.display[this.state.display.length - 1])
-//     ) {
-//       this.setState({
-//         display:
-//           this.state.display.substring(0, this.state.display.length - 2) +
-//           input
-//       });
-//     } else if (
-//       ["x", "/", "+"].includes(
-//         this.state.display[this.state.display.length - 1]
-//       )
-//     ) {
-//       this.setState({
-//         display:
-//           this.state.display.substring(0, this.state.display.length - 1) +
-//           input
-//       });
-//     }
-//     break;
-//   case "+":
-//     if (
-//       ["x", "/", "+"].includes(
-//         this.state.display[this.state.display.length - 1]
-//       )
-//     ) {
-//       this.setState({
-//         display:
-//           this.state.display.substring(0, this.state.display.length - 1) +
-//           input
-//       });
-//     }
-//     break;
-//   case "-":
-//     if (
-//       ["-"].includes(
-//         this.state.display[this.state.display.length - 1]
-//       )
-//     ) {
-//       this.setState({
-//         display:
-//           this.state.display.substring(0, this.state.display.length - 1) +
-//           input
-//       });
-//     }
-//     break;
-// }
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -105,11 +25,14 @@ class App extends React.Component {
         break;
       case outerText === "=":
         this.setState({
-          display: this.calculateExp(this.state.expression)
+          expression: this.state.display,
+          display: this.calculateExp(this.state.display)
         });
+        break;
       case outerText === "AC":
         this.setState({
-          display: "0"
+          display: "0",
+          expression: ""
         });
         break;
     }
@@ -226,8 +149,44 @@ class App extends React.Component {
       }
     }
   }
-  calculateExp(input) {
+  calculateExp(exp) {
     console.log("-----evalute = input---------");
+    console.log("exp = ", exp);
+
+    let regx = /(\D\d*\.\d*)|(\d*\.\d*)|(\d+)|(\D*\d+)/g;
+    let matchReady = exp.match(regx);
+    let total;
+    console.log(matchReady);
+    matchReady.map((item) => {
+      console.log(item[0]);
+      switch (true) {
+        case ["+", "-", "x", "/"].includes(item[0]):
+          if (item[0] === "+") {
+            total = total + Number(item.slice(1));
+            break;
+          } else if (item[0] === "x") {
+            total = total * Number(item.slice(1));
+            break;
+          } else if (item[0] === "x" && item[1] === "-") {
+            total = total * -Number(item.slice(2));
+            break;
+          } else if (item[0] === "/") {
+            total = total / Number(item.slice(1));
+            break;
+          } else if (item[0] === "/" && item[1] === "-") {
+            total = total / -Number(item.slice(2));
+            break;
+          } else if (item[0] === "-") {
+            total = total - Number(item.slice(1));
+            break;
+          }
+        default:
+          total = Number(item);
+          break;
+      }
+    });
+    console.log("Total", total);
+    return total;
   }
 
   render() {
@@ -241,7 +200,7 @@ class App extends React.Component {
           id="display1"
           className="container p-0 d-flex justify-content-end align-items-end text-light fs-3"
         >
-          123
+          {this.state.expression}
         </div>
         <div
           id="display"
@@ -379,7 +338,7 @@ class App extends React.Component {
             </div>
             <div
               id="equals"
-              className="col-3 rounded-0 outline btn-success d-flex justify-content-center align-items-center"
+              className="col-3 rounded-0 outline btn btn-success d-flex justify-content-center align-items-center"
               onClick={this.clicked}
             >
               =
